@@ -13,14 +13,13 @@
 
             <h3>Basic Usage</h3>
             <p>Single file upload.</p>
-            <upload-field v-model="image" name="file" :max-width="200" :max-height="200"></upload-field>
+            <upload-field v-model="image" name="file" :max-width="200"></upload-field>
 
             <hr>
 
             <h3>Multiple Files</h3>
             <p>Select multiple files.</p>
-            <upload-field v-model="images" name="file" :max-width="200" :max-height="200" multiple></upload-field>
-
+            <upload-field v-model="images" name="file" :max-width="200" multiple></upload-field>
         </form>
 
         <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.js"></script>
