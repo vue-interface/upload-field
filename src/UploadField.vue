@@ -4,6 +4,7 @@
             <file-field
                 v-if="multiple && (!maxUploads || maxUploads > value.length) || !multiple && !value"
                 ref="field"
+                v-bind="controlAttributes"
                 :error="error"
                 :errors="errors"
                 :help-text="helpText"
