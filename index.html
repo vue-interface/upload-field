@@ -4,8 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>UploadField</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap-reboot.min.css">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap-grid.min.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="./dist/UploadField.css">
     </head>
     <body>
@@ -21,6 +20,14 @@
             <h3>Multiple Files</h3>
             <p>Select multiple files.</p>
             <upload-field v-model="images" name="file" :max-width="200" multiple></upload-field>
+
+            <hr>
+
+
+            <h3>Legacy Styles</h3>
+            <p>Using the legacy prop.</p>
+            <upload-field v-model="image" legacy name="file" :max-width="200" help-text="Some help text goes here."></upload-field>
+
         </form>
 
         <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.js"></script>

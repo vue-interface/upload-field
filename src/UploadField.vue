@@ -4,7 +4,6 @@
             <file-field
                 v-if="multiple && (!maxUploads || maxUploads > value.length) || !multiple && !value"
                 ref="field"
-                v-bind="controlAttributes"
                 :error="error"
                 :errors="errors"
                 :help-text="helpText"
@@ -44,6 +43,8 @@ import ThumbnailList from '@vue-interface/thumbnail-list';
 
 export default {
 
+    name: 'UploadField',
+
     components: {
         Dropzone,
         FileField,
@@ -51,9 +52,22 @@ export default {
         ThumbnailList,
     },
 
-    extends: FileField,
+    mixins: [
+        FormControl
+    ],
 
     props: {
+
+        /**
+         * The default class name assigned to the control element
+         *
+         * @param {String}
+         * @default 'form-control'
+         */
+        defaultControlClass: {
+            type: String,
+            default: null
+        },
 
         /**
          * Can user drag/drop files into browser to upload them.
@@ -167,6 +181,10 @@ export default {
                 this.$emit('input', value.length ? value : null);
             }
         }
+    },
+
+    mounted() {
+        console.log(this.formGroupClasses);
     },
 
     methods: {
