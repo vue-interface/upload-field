@@ -2,7 +2,7 @@
     <div :class="Object.assign(formGroupClasses, {'is-dragging': isDragging, 'enable-dropzone': dropzone, 'enable-multiple': multiple})">
         <dropzone @drop="onDrop" @dragover="onDragOver" @dragenter="onDragEnter" @dragleave="onDragLeave">
             <file-field
-                v-if="multiple && (!maxUploads || maxUploads > value.length) || !multiple && !value"
+                v-show="multiple && (!maxUploads || maxUploads > value.length) || !multiple && !value"
                 ref="field"
                 v-bind="controlAttributes"
                 :error="error"
@@ -175,12 +175,9 @@ export default {
 
     watch: {
         files(value) {
-            if(this.multiple) {
-                this.$emit('input', value);
-            }
-            else {
-                this.$emit('input', value.length ? value : null);
-            }
+            this.$emit('input', this.multiple ? value : (
+                value.length ? value[0] : null
+            ));
         }
     },
 
