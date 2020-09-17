@@ -4,7 +4,8 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>UploadField</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap-reboot.min.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap-grid.min.css">
         <link rel="stylesheet" href="./dist/UploadField.css">
     </head>
     <body>
@@ -13,7 +14,7 @@
 
             <h3>Basic Usage</h3>
             <p>Single file upload.</p>
-            <upload-field v-model="image" name="file" :max-width="200"></upload-field>
+            <upload-field v-model="image" name="file" :max-width="200" help-text="Some help text goes here."></upload-field>
 
             <hr>
 

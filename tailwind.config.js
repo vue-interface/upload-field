@@ -6,6 +6,6 @@ module.exports = {
         container: false,
     },
     plugins: [
-        require('@vue-interface/form-control/tailwindcss'),
+        ...require('@vue-interface/form-control/tailwindcss'),
     ]
 };

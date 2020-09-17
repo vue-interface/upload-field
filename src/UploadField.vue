@@ -1,17 +1,16 @@
 <template>
-    <div :group="group" :class="Object.assign(formGroupClasses, {'is-dragging': isDragging, 'enable-dropzone': dropzone, 'enable-multiple': multiple})">
+    <div :class="Object.assign(formGroupClasses, {'is-dragging': isDragging, 'enable-dropzone': dropzone, 'enable-multiple': multiple})">
         <dropzone @drop="onDrop" @dragover="onDragOver" @dragenter="onDragEnter" @dragleave="onDragLeave">
-            <slot name="label">
-                <label v-if="label" ref="label" :for="$attrs.id" :class="labelClass" v-html="label" />
-            </slot>
-
             <file-field
                 v-if="multiple && (!maxUploads || maxUploads > value.length) || !multiple && !value"
                 ref="field"
                 v-bind="controlAttributes"
+                :error="error"
+                :errors="errors"
                 :help-text="helpText"
+                :label="label"
                 :multiple="multiple"
-                @change="onInputChange" />
+                @input="onInput" />
 
             <thumbnail-list
                 v-if="files && files.length"
@@ -31,18 +30,6 @@
                         @close="onRemove(i)" />
                 </keep-alive>
             </thumbnail-list>
-            
-            <slot name="feedback">
-                <div v-if="validFeedback" ref="feedback" class="valid-feedback" v-html="validFeedback" />
-                <div v-else-if="invalidFeedback" ref="feedback" class="invalid-feedback" v-html="invalidFeedback" />
-            </slot>
-
-            <!--
-            <div v-if="isDragging" class="upload-field-dropzone" :style="{'min-height': dropzoneMinHeight}" @drop.prevent="onDrop">
-                <font-awesome-icon icon="cloud-upload-alt" />
-                <div>Drag and drop files to upload</div>
-            </div>
-            -->
         </dropzone>
     </div>
 </template>
@@ -54,14 +41,7 @@ import FilePreview from '@vue-interface/file-preview';
 import FormControl from '@vue-interface/form-control';
 import ThumbnailList from '@vue-interface/thumbnail-list';
 
-// import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-// import { library } from '@fortawesome/fontawesome-svg-core';
-// import { faCloudUploadAlt } from '@fortawesome/free-solid-svg-icons/faCloudUploadAlt';
-// library.add(faCloudUploadAlt);
-
 export default {
-
-    name: 'UploadField',
 
     components: {
         Dropzone,
@@ -70,14 +50,7 @@ export default {
         ThumbnailList,
     },
 
-    mixins: [
-        FormControl,
-    ],
-
-    model: {
-        prop: 'value',
-        event: 'change'
-    },
+    extends: FileField,
 
     props: {
 
@@ -187,10 +160,10 @@ export default {
     watch: {
         files(value) {
             if(this.multiple) {
-                this.$emit('change', value);
+                this.$emit('input', value);
             }
             else {
-                this.$emit('change', value.length ? value : null);
+                this.$emit('input', value.length ? value : null);
             }
         }
     },
@@ -245,7 +218,7 @@ export default {
          *
          * @type Object
          */
-        onInputChange(files) {
+        onInput(files) {
             if(files instanceof FileList) {
                 this.addFiles(files);
             }
