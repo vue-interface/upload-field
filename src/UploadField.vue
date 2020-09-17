@@ -9,6 +9,7 @@
                 :errors="errors"
                 :help-text="helpText"
                 :label="label"
+                :legacy="legacy"
                 :multiple="multiple"
                 @input="onInput" />
 
