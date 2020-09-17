@@ -183,10 +183,6 @@ export default {
         }
     },
 
-    mounted() {
-        console.log(this.formGroupClasses);
-    },
-
     methods: {
 
         onRemove(index) {
