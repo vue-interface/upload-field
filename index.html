@@ -23,10 +23,17 @@
 
             <hr>
 
+            <h3>Upload w/ Existing Files</h3>
+            <p>Existing files can be specified with an object or as a URL string.</p>
+            <upload-field name="file3">
+                <img src="http://via.placeholder.com/100x100" />
+            </upload-field>
+
+            <hr>
 
             <h3>Legacy Styles</h3>
             <p>Using the legacy prop.</p>
-            <upload-field v-model="image" legacy name="file3" :max-width="200" help-text="Some help text goes here."></upload-field>
+            <upload-field legacy :max-width="200" help-text="Some help text goes here."></upload-field>
 
         </form>
 

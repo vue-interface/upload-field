@@ -14,14 +14,15 @@
                 @input="onInput" />
 
             <thumbnail-list
-                v-if="files && files.length"
-                class="mt-4"
+                v-if="files && files.length || $slots.default && $slots.default.length"
+                class="mt-3"
                 :width="width"
                 :min-width="minWidth"
                 :max-width="maxWidth"
                 :height="height"
                 :min-height="minHeight"
-                :max-height="maxHeight">
+                :max-height="maxHeight"
+                cover>
                 <keep-alive v-for="(file, i) in files" :key="file.name">
                     <file-preview
                         :key="file.name"
@@ -30,6 +31,7 @@
                         @loaded="onLoadedPreview"
                         @close="onRemove(i)" />
                 </keep-alive>
+                <slot />
             </thumbnail-list>
         </dropzone>
     </div>
@@ -57,6 +59,10 @@ export default {
         FormControl
     ],
 
+    model: {
+        prop: 'files'
+    },
+
     props: {
 
         /**
@@ -73,7 +79,8 @@ export default {
         /**
          * Can user drag/drop files into browser to upload them.
          *
-         * @property String
+         * @param {Boolean}
+         * @default true
          */
         dropzone: {
             type: Boolean,
@@ -83,77 +90,72 @@ export default {
         /**
          * Can user drag/drop files into browser to upload them.
          *
-         * @property String
+         * @param {Number|String}
          */
         dropzoneMinHeight: [Number, String],
 
         /**
          * The height attribute for the control element
          *
-         * @property String
+         * @param {Number|String}
          */
         height: [Number, String],
 
         /**
          * Can user upload multiple files
          *
-         * @property String
+         * @param {Number}
          */
         multiple: Boolean,
 
         /**
          * The maximum height attribute for the control element
          *
-         * @property String
+         * @param {Number|String}
          */
         maxHeight: [Number, String],
 
         /**
          * The maximum number of files that a user can upload
          *
-         * @property String
+         * @param {Number}
          */
         maxUploads: Number,
 
         /**
          * The maximum width attribute for the control element
          *
-         * @property String
+         * @param {Number|String}
          */
         maxWidth: [Number, String],
 
         /**
          * The minimum height attribute for the control element
          *
-         * @property String
+         * @param {Number|String}
          */
         minHeight: [Number, String],
 
         /**
          * The minimum width attribute for the control element
          *
-         * @property String
+         * @param {Number|String}
          */
         minWidth: [Number, String],
 
         /**
          * The width attribute for the control element
          *
-         * @property String
+         * @param {Number|String}
          */
         width: [Number, String],
 
         /**
          * The data attribute
          *
-         * @property File|FileList|Array
+         * @param {File|FileList}
          */
-        value: {
-            type: [Object, File, FileList, Array],
-            default() {
-                return !this.multiple ? null : [];
-            }
-        }
+        value: [String, Array, Object]
         
     },
 
@@ -176,7 +178,7 @@ export default {
     watch: {
         files(value) {
             this.$emit('input', this.multiple ? value : (
-                value.length ? value[0] : null
+                value && value.length ? value[0] : null
             ));
         }
     },
@@ -273,7 +275,7 @@ export default {
         /**
          * The `drop` event callback.
          *
-         * @property String
+         * @param {String}
          */
         onDrop(event) {
             this.isDragging = false;
