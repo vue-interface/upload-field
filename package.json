@@ -1,6 +1,6 @@
 {
   "name": "@vue-interface/upload-field",
-  "version": "0.8.10",
+  "version": "1.0.0",
   "description": "A Vue upload field component.",
   "main": "./dist/upload-file.umd.js",
   "module": "./index.js",
