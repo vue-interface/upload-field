@@ -3383,9 +3383,9 @@ var render3 = function() {
   return _c("div", { staticClass: "upload-field", class: { "is-dragging": _vm.isDragging, "multiple": _vm.multiple } }, [_c("dropzone", { staticClass: "upload-field-dropzone", on: { "drop": _vm.onDrop, "dragover": _vm.onDragOver, "dragenter": _vm.onDragEnter, "dragleave": _vm.onDragLeave } }, [_c("input", { ref: "input", attrs: { "type": "file", "multiple": _vm.multiple, "hidden": "" }, on: { "change": _vm.onFileChange } }), _vm._t("button", function() {
     return [_c("btn", { attrs: { "type": "button", "variant": "primary" }, on: { "click": _vm.onClickUpload } }, [_vm._v(" " + _vm._s(_vm.label) + " ")])];
   }, null, { onClickUpload: _vm.onClickUpload })], 2), _vm._t("files", function() {
-    return [_c("div", { staticClass: "upload-field-files" }, _vm._l(_vm.files, function(file) {
+    return [_vm.files.length ? _c("div", { staticClass: "upload-field-files" }, _vm._l(_vm.files, function(file) {
       return _c("file-preview", { key: file.name, attrs: { "file": file }, on: { "close": _vm.onClickClose } });
-    }), 1)];
+    }), 1) : _vm._e()];
   }, { "files": _vm.files })], 2);
 };
 var staticRenderFns = [];

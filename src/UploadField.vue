@@ -16,7 +16,7 @@
         </dropzone>
         
         <slot name="files" :files="files">
-            <div class="upload-field-files">
+            <div v-if="files.length" class="upload-field-files">
                 <file-preview
                     v-for="file in files"
                     :key="file.name"
