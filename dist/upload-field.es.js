@@ -28,8 +28,8 @@ LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
 OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
 PERFORMANCE OF THIS SOFTWARE.
 ***************************************************************************** */
-var __assign = function() {
-  __assign = Object.assign || function __assign2(t) {
+var __assign$1 = function() {
+  __assign$1 = Object.assign || function __assign2(t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
       s = arguments[i];
       for (var p2 in s)
@@ -38,19 +38,19 @@ var __assign = function() {
     }
     return t;
   };
-  return __assign.apply(this, arguments);
+  return __assign$1.apply(this, arguments);
 };
-function lowerCase(str) {
+function lowerCase$1(str) {
   return str.toLowerCase();
 }
-var DEFAULT_SPLIT_REGEXP = [/([a-z0-9])([A-Z])/g, /([A-Z])([A-Z][a-z])/g];
-var DEFAULT_STRIP_REGEXP = /[^A-Z0-9]+/gi;
-function noCase(input, options) {
+var DEFAULT_SPLIT_REGEXP$1 = [/([a-z0-9])([A-Z])/g, /([A-Z])([A-Z][a-z])/g];
+var DEFAULT_STRIP_REGEXP$1 = /[^A-Z0-9]+/gi;
+function noCase$1(input, options) {
   if (options === void 0) {
     options = {};
   }
-  var _a = options.splitRegexp, splitRegexp = _a === void 0 ? DEFAULT_SPLIT_REGEXP : _a, _b = options.stripRegexp, stripRegexp = _b === void 0 ? DEFAULT_STRIP_REGEXP : _b, _c = options.transform, transform = _c === void 0 ? lowerCase : _c, _d = options.delimiter, delimiter = _d === void 0 ? " " : _d;
-  var result = replace$1(replace$1(input, splitRegexp, "$1\0$2"), stripRegexp, "\0");
+  var _a = options.splitRegexp, splitRegexp = _a === void 0 ? DEFAULT_SPLIT_REGEXP$1 : _a, _b = options.stripRegexp, stripRegexp = _b === void 0 ? DEFAULT_STRIP_REGEXP$1 : _b, _c = options.transform, transform = _c === void 0 ? lowerCase$1 : _c, _d = options.delimiter, delimiter = _d === void 0 ? " " : _d;
+  var result = replace$2(replace$2(input, splitRegexp, "$1\0$2"), stripRegexp, "\0");
   var start = 0;
   var end3 = result.length;
   while (result.charAt(start) === "\0")
@@ -59,26 +59,26 @@ function noCase(input, options) {
     end3--;
   return result.slice(start, end3).split("\0").map(transform).join(delimiter);
 }
-function replace$1(input, re, value) {
+function replace$2(input, re, value) {
   if (re instanceof RegExp)
     return input.replace(re, value);
   return re.reduce(function(input2, re2) {
     return input2.replace(re2, value);
   }, input);
 }
-function dotCase(input, options) {
+function dotCase$1(input, options) {
   if (options === void 0) {
     options = {};
   }
-  return noCase(input, __assign({
+  return noCase$1(input, __assign$1({
     delimiter: "."
   }, options));
 }
-function paramCase(input, options) {
+function paramCase$1(input, options) {
   if (options === void 0) {
     options = {};
   }
-  return dotCase(input, __assign({
+  return dotCase$1(input, __assign$1({
     delimiter: "-"
   }, options));
 }
@@ -94,7 +94,7 @@ var Sizeable = {
   },
   computed: {
     sizeableClassPrefix() {
-      return this.sizePrefix && paramCase(this.sizePrefix);
+      return this.sizePrefix && paramCase$1(this.sizePrefix);
     },
     sizeableClass() {
       if (!this.size || !this.sizeableClassPrefix) {
@@ -636,14 +636,14 @@ var _default = {
 var _config = _objectSpread2(_objectSpread2({}, _default), initial);
 if (!_config.autoReplaceSvg)
   _config.observeMutations = false;
-var config = {};
+var config$1 = {};
 Object.keys(_config).forEach(function(key) {
-  Object.defineProperty(config, key, {
+  Object.defineProperty(config$1, key, {
     enumerable: true,
     set: function set(val) {
       _config[key] = val;
       _onChangeCb.forEach(function(cb) {
-        return cb(config);
+        return cb(config$1);
       });
     },
     get: function get() {
@@ -651,7 +651,7 @@ Object.keys(_config).forEach(function(key) {
     }
   });
 });
-WINDOW.FontAwesomeConfig = config;
+WINDOW.FontAwesomeConfig = config$1;
 var _onChangeCb = [];
 function onChange(cb) {
   _onChangeCb.push(cb);
@@ -766,8 +766,8 @@ var baseStyles = ':root, :host {\n  --fa-font-solid: normal 900 1em/1 "Font Awes
 function css() {
   var dfp = DEFAULT_FAMILY_PREFIX;
   var drc = DEFAULT_REPLACEMENT_CLASS;
-  var fp = config.familyPrefix;
-  var rc = config.replacementClass;
+  var fp = config$1.familyPrefix;
+  var rc = config$1.replacementClass;
   var s = baseStyles;
   if (fp !== dfp || rc !== drc) {
     var dPatt = new RegExp("\\.".concat(dfp, "\\-"), "g");
@@ -779,7 +779,7 @@ function css() {
 }
 var _cssInserted = false;
 function ensureCss() {
-  if (config.autoAddCss && !_cssInserted) {
+  if (config$1.autoAddCss && !_cssInserted) {
     insertCss(css());
     _cssInserted = true;
   }
@@ -841,12 +841,12 @@ function toHtml(abstractNodes) {
     return "<".concat(tag, " ").concat(joinAttributes(attributes), ">").concat(children.map(toHtml).join(""), "</").concat(tag, ">");
   }
 }
-function iconFromMapping(mapping, prefix, iconName) {
-  if (mapping && mapping[prefix] && mapping[prefix][iconName]) {
+function iconFromMapping(mapping, prefix2, iconName) {
+  if (mapping && mapping[prefix2] && mapping[prefix2][iconName]) {
     return {
-      prefix,
+      prefix: prefix2,
       iconName,
-      icon: mapping[prefix][iconName]
+      icon: mapping[prefix2][iconName]
     };
   }
 }
@@ -918,16 +918,16 @@ function normalizeIcons(icons2) {
     return acc;
   }, {});
 }
-function defineIcons(prefix, icons2) {
+function defineIcons(prefix2, icons2) {
   var params = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : {};
   var _params$skipHooks = params.skipHooks, skipHooks = _params$skipHooks === void 0 ? false : _params$skipHooks;
   var normalized = normalizeIcons(icons2);
   if (typeof namespace.hooks.addPack === "function" && !skipHooks) {
-    namespace.hooks.addPack(prefix, normalizeIcons(icons2));
+    namespace.hooks.addPack(prefix2, normalizeIcons(icons2));
   } else {
-    namespace.styles[prefix] = _objectSpread2(_objectSpread2({}, namespace.styles[prefix] || {}), normalized);
+    namespace.styles[prefix2] = _objectSpread2(_objectSpread2({}, namespace.styles[prefix2] || {}), normalized);
   }
-  if (prefix === "fas") {
+  if (prefix2 === "fas") {
     defineIcons("fa", icons2);
   }
 }
@@ -945,9 +945,9 @@ function isReserved(name) {
 }
 function getIconName(familyPrefix, cls) {
   var parts = cls.split("-");
-  var prefix = parts[0];
+  var prefix2 = parts[0];
   var iconName = parts.slice(1).join("-");
-  if (prefix === familyPrefix && iconName !== "" && !isReserved(iconName)) {
+  if (prefix2 === familyPrefix && iconName !== "" && !isReserved(iconName)) {
     return iconName;
   } else {
     return null;
@@ -955,8 +955,8 @@ function getIconName(familyPrefix, cls) {
 }
 var build = function build2() {
   var lookup = function lookup2(reducer) {
-    return reduce(styles, function(o, style, prefix) {
-      o[prefix] = reduce(style, reducer, {});
+    return reduce(styles, function(o, style, prefix2) {
+      o[prefix2] = reduce(style, reducer, {});
       return o;
     }, {});
   };
@@ -994,23 +994,23 @@ var build = function build2() {
     });
     return acc;
   });
-  var hasRegular = "far" in styles || config.autoFetchSvg;
+  var hasRegular = "far" in styles || config$1.autoFetchSvg;
   var shimLookups = reduce(shims, function(acc, shim) {
     var maybeNameMaybeUnicode = shim[0];
-    var prefix = shim[1];
+    var prefix2 = shim[1];
     var iconName = shim[2];
-    if (prefix === "far" && !hasRegular) {
-      prefix = "fas";
+    if (prefix2 === "far" && !hasRegular) {
+      prefix2 = "fas";
     }
     if (typeof maybeNameMaybeUnicode === "string") {
       acc.names[maybeNameMaybeUnicode] = {
-        prefix,
+        prefix: prefix2,
         iconName
       };
     }
     if (typeof maybeNameMaybeUnicode === "number") {
       acc.unicodes[maybeNameMaybeUnicode.toString(16)] = {
-        prefix,
+        prefix: prefix2,
         iconName
       };
     }
@@ -1021,20 +1021,20 @@ var build = function build2() {
   });
   _byOldName = shimLookups.names;
   _byOldUnicode = shimLookups.unicodes;
-  _defaultUsablePrefix = getCanonicalPrefix(config.styleDefault);
+  _defaultUsablePrefix = getCanonicalPrefix(config$1.styleDefault);
 };
 onChange(function(c) {
   _defaultUsablePrefix = getCanonicalPrefix(c.styleDefault);
 });
 build();
-function byUnicode(prefix, unicode) {
-  return (_byUnicode[prefix] || {})[unicode];
+function byUnicode(prefix2, unicode) {
+  return (_byUnicode[prefix2] || {})[unicode];
 }
-function byLigature(prefix, ligature) {
-  return (_byLigature[prefix] || {})[ligature];
+function byLigature(prefix2, ligature) {
+  return (_byLigature[prefix2] || {})[ligature];
 }
-function byAlias(prefix, alias) {
-  return (_byAlias[prefix] || {})[alias];
+function byAlias(prefix2, alias) {
+  return (_byAlias[prefix2] || {})[alias];
 }
 function byOldName(name) {
   return _byOldName[name] || {
@@ -1065,16 +1065,16 @@ var emptyCanonicalIcon = function emptyCanonicalIcon2() {
 };
 function getCanonicalPrefix(styleOrPrefix) {
   var style = PREFIX_TO_STYLE[styleOrPrefix];
-  var prefix = STYLE_TO_PREFIX[styleOrPrefix] || STYLE_TO_PREFIX[style];
+  var prefix2 = STYLE_TO_PREFIX[styleOrPrefix] || STYLE_TO_PREFIX[style];
   var defined = styleOrPrefix in namespace.styles ? styleOrPrefix : null;
-  return prefix || defined || null;
+  return prefix2 || defined || null;
 }
 function getCanonicalIcon(values) {
   var params = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
   var _params$skipLookups = params.skipLookups, skipLookups = _params$skipLookups === void 0 ? false : _params$skipLookups;
   var givenPrefix = null;
   var canonical = values.reduce(function(acc, cls) {
-    var iconName = getIconName(config.familyPrefix, cls);
+    var iconName = getIconName(config$1.familyPrefix, cls);
     if (styles[cls]) {
       cls = LONG_STYLE.includes(cls) ? LONG_STYLE_TO_PREFIX[cls] : cls;
       givenPrefix = cls;
@@ -1084,7 +1084,7 @@ function getCanonicalIcon(values) {
       acc.prefix = getCanonicalPrefix(cls);
     } else if (iconName) {
       acc.iconName = iconName;
-    } else if (cls !== config.replacementClass) {
+    } else if (cls !== config$1.replacementClass) {
       acc.rest.push(cls);
     }
     if (!skipLookups && acc.prefix && acc.iconName) {
@@ -1095,7 +1095,7 @@ function getCanonicalIcon(values) {
       }
       acc.iconName = shim.iconName || aliasIconName || acc.iconName;
       acc.prefix = shim.prefix || acc.prefix;
-      if (acc.prefix === "far" && !styles["far"] && styles["fas"] && !config.autoFetchSvg) {
+      if (acc.prefix === "far" && !styles["far"] && styles["fas"] && !config$1.autoFetchSvg) {
         acc.prefix = "fas";
       }
     }
@@ -1140,18 +1140,18 @@ var Library = /* @__PURE__ */ function() {
         0: definition
       } : definition;
       Object.keys(normalized).map(function(key) {
-        var _normalized$key = normalized[key], prefix = _normalized$key.prefix, iconName = _normalized$key.iconName, icon3 = _normalized$key.icon;
+        var _normalized$key = normalized[key], prefix2 = _normalized$key.prefix, iconName = _normalized$key.iconName, icon3 = _normalized$key.icon;
         var aliases = icon3[2];
-        if (!additions[prefix])
-          additions[prefix] = {};
+        if (!additions[prefix2])
+          additions[prefix2] = {};
         if (aliases.length > 0) {
           aliases.forEach(function(alias) {
             if (typeof alias === "string") {
-              additions[prefix][alias] = icon3;
+              additions[prefix2][alias] = icon3;
             }
           });
         }
-        additions[prefix][iconName] = icon3;
+        additions[prefix2][iconName] = icon3;
       });
       return additions;
     }
@@ -1231,16 +1231,16 @@ function findIconDefinition(iconLookup) {
     iconLookup.prefix = "fas";
   }
   var iconName = iconLookup.iconName;
-  var prefix = iconLookup.prefix || getDefaultUsablePrefix();
+  var prefix2 = iconLookup.prefix || getDefaultUsablePrefix();
   if (!iconName)
     return;
-  iconName = byAlias(prefix, iconName) || iconName;
-  return iconFromMapping(library.definitions, prefix, iconName) || iconFromMapping(namespace.styles, prefix, iconName);
+  iconName = byAlias(prefix2, iconName) || iconName;
+  return iconFromMapping(library.definitions, prefix2, iconName) || iconFromMapping(namespace.styles, prefix2, iconName);
 }
 var library = new Library();
 var noAuto = function noAuto2() {
-  config.autoReplaceSvg = false;
-  config.observeMutations = false;
+  config$1.autoReplaceSvg = false;
+  config$1.observeMutations = false;
   callHooks("noAuto");
 };
 var dom = {
@@ -1257,10 +1257,10 @@ var dom = {
   watch: function watch() {
     var params = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {};
     var autoReplaceSvgRoot = params.autoReplaceSvgRoot;
-    if (config.autoReplaceSvg === false) {
-      config.autoReplaceSvg = true;
+    if (config$1.autoReplaceSvg === false) {
+      config$1.autoReplaceSvg = true;
     }
-    config.observeMutations = true;
+    config$1.observeMutations = true;
     domready(function() {
       autoReplace({
         autoReplaceSvgRoot
@@ -1282,13 +1282,13 @@ var parse = {
     }
     if (Array.isArray(_icon) && _icon.length === 2) {
       var iconName = _icon[1].indexOf("fa-") === 0 ? _icon[1].slice(3) : _icon[1];
-      var prefix = getCanonicalPrefix(_icon[0]);
+      var prefix2 = getCanonicalPrefix(_icon[0]);
       return {
-        prefix,
-        iconName: byAlias(prefix, iconName) || iconName
+        prefix: prefix2,
+        iconName: byAlias(prefix2, iconName) || iconName
       };
     }
-    if (typeof _icon === "string" && (_icon.indexOf("".concat(config.familyPrefix, "-")) > -1 || _icon.match(ICON_SELECTION_SYNTAX_PATTERN))) {
+    if (typeof _icon === "string" && (_icon.indexOf("".concat(config$1.familyPrefix, "-")) > -1 || _icon.match(ICON_SELECTION_SYNTAX_PATTERN))) {
       var canonicalIcon = getCanonicalIcon(_icon.split(" "), {
         skipLookups: true
       });
@@ -1308,7 +1308,7 @@ var parse = {
 };
 var api = {
   noAuto,
-  config,
+  config: config$1,
   dom,
   parse,
   library,
@@ -1318,7 +1318,7 @@ var api = {
 var autoReplace = function autoReplace2() {
   var params = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {};
   var _params$autoReplaceSv = params.autoReplaceSvgRoot, autoReplaceSvgRoot = _params$autoReplaceSv === void 0 ? DOCUMENT : _params$autoReplaceSv;
-  if ((Object.keys(namespace.styles).length > 0 || config.autoFetchSvg) && IS_DOM && config.autoReplaceSvg)
+  if ((Object.keys(namespace.styles).length > 0 || config$1.autoFetchSvg) && IS_DOM && config$1.autoReplaceSvg)
     api.dom.i2svg({
       node: autoReplaceSvgRoot
     });
@@ -1364,8 +1364,8 @@ function asIcon(_ref2) {
   }];
 }
 function asSymbol(_ref2) {
-  var prefix = _ref2.prefix, iconName = _ref2.iconName, children = _ref2.children, attributes = _ref2.attributes, symbol = _ref2.symbol;
-  var id = symbol === true ? "".concat(prefix, "-").concat(config.familyPrefix, "-").concat(iconName) : symbol;
+  var prefix2 = _ref2.prefix, iconName = _ref2.iconName, children = _ref2.children, attributes = _ref2.attributes, symbol = _ref2.symbol;
+  var id = symbol === true ? "".concat(prefix2, "-").concat(config$1.familyPrefix, "-").concat(iconName) : symbol;
   return [{
     tag: "svg",
     attributes: {
@@ -1381,10 +1381,10 @@ function asSymbol(_ref2) {
   }];
 }
 function makeInlineSvgAbstract(params) {
-  var _params$icons = params.icons, main = _params$icons.main, mask = _params$icons.mask, prefix = params.prefix, iconName = params.iconName, transform = params.transform, symbol = params.symbol, title = params.title, maskId = params.maskId, titleId = params.titleId, extra = params.extra, _params$watchable = params.watchable, watchable = _params$watchable === void 0 ? false : _params$watchable;
+  var _params$icons = params.icons, main = _params$icons.main, mask = _params$icons.mask, prefix2 = params.prefix, iconName = params.iconName, transform = params.transform, symbol = params.symbol, title = params.title, maskId = params.maskId, titleId = params.titleId, extra = params.extra, _params$watchable = params.watchable, watchable = _params$watchable === void 0 ? false : _params$watchable;
   var _ref2 = mask.found ? mask : main, width = _ref2.width, height = _ref2.height;
-  var isUploadedIcon = prefix === "fak";
-  var attrClass = [config.replacementClass, iconName ? "".concat(config.familyPrefix, "-").concat(iconName) : ""].filter(function(c) {
+  var isUploadedIcon = prefix2 === "fak";
+  var attrClass = [config$1.replacementClass, iconName ? "".concat(config$1.familyPrefix, "-").concat(iconName) : ""].filter(function(c) {
     return extra.classes.indexOf(c) === -1;
   }).filter(function(c) {
     return c !== "" || !!c;
@@ -1392,7 +1392,7 @@ function makeInlineSvgAbstract(params) {
   var content = {
     children: [],
     attributes: _objectSpread2(_objectSpread2({}, extra.attributes), {}, {
-      "data-prefix": prefix,
+      "data-prefix": prefix2,
       "data-icon": iconName,
       "class": attrClass,
       "role": extra.attributes.role || "img",
@@ -1417,7 +1417,7 @@ function makeInlineSvgAbstract(params) {
     delete content.attributes.title;
   }
   var args = _objectSpread2(_objectSpread2({}, content), {}, {
-    prefix,
+    prefix: prefix2,
     iconName,
     main,
     mask,
@@ -1520,19 +1520,19 @@ function asFoundIcon(icon3) {
     element = {
       tag: "g",
       attributes: {
-        class: "".concat(config.familyPrefix, "-").concat(DUOTONE_CLASSES.GROUP)
+        class: "".concat(config$1.familyPrefix, "-").concat(DUOTONE_CLASSES.GROUP)
       },
       children: [{
         tag: "path",
         attributes: {
-          class: "".concat(config.familyPrefix, "-").concat(DUOTONE_CLASSES.SECONDARY),
+          class: "".concat(config$1.familyPrefix, "-").concat(DUOTONE_CLASSES.SECONDARY),
           fill: "currentColor",
           d: vectorData[0]
         }
       }, {
         tag: "path",
         attributes: {
-          class: "".concat(config.familyPrefix, "-").concat(DUOTONE_CLASSES.PRIMARY),
+          class: "".concat(config$1.familyPrefix, "-").concat(DUOTONE_CLASSES.PRIMARY),
           fill: "currentColor",
           d: vectorData[1]
         }
@@ -1559,15 +1559,15 @@ var missingIconResolutionMixin = {
   width: 512,
   height: 512
 };
-function maybeNotifyMissing(iconName, prefix) {
-  if (!PRODUCTION$1 && !config.showMissingIcons && iconName) {
-    console.error('Icon with name "'.concat(iconName, '" and prefix "').concat(prefix, '" is missing.'));
+function maybeNotifyMissing(iconName, prefix2) {
+  if (!PRODUCTION$1 && !config$1.showMissingIcons && iconName) {
+    console.error('Icon with name "'.concat(iconName, '" and prefix "').concat(prefix2, '" is missing.'));
   }
 }
-function findIcon(iconName, prefix) {
-  var givenPrefix = prefix;
-  if (prefix === "fa" && config.styleDefault !== null) {
-    prefix = getDefaultUsablePrefix();
+function findIcon(iconName, prefix2) {
+  var givenPrefix = prefix2;
+  if (prefix2 === "fa" && config$1.styleDefault !== null) {
+    prefix2 = getDefaultUsablePrefix();
   }
   return new Promise(function(resolve, reject) {
     ({
@@ -1579,21 +1579,21 @@ function findIcon(iconName, prefix) {
     if (givenPrefix === "fa") {
       var shim = byOldName(iconName) || {};
       iconName = shim.iconName || iconName;
-      prefix = shim.prefix || prefix;
+      prefix2 = shim.prefix || prefix2;
     }
-    if (iconName && prefix && styles$1[prefix] && styles$1[prefix][iconName]) {
-      var icon3 = styles$1[prefix][iconName];
+    if (iconName && prefix2 && styles$1[prefix2] && styles$1[prefix2][iconName]) {
+      var icon3 = styles$1[prefix2][iconName];
       return resolve(asFoundIcon(icon3));
     }
-    maybeNotifyMissing(iconName, prefix);
+    maybeNotifyMissing(iconName, prefix2);
     resolve(_objectSpread2(_objectSpread2({}, missingIconResolutionMixin), {}, {
-      icon: config.showMissingIcons && iconName ? callProvided("missingIconAbstract") || {} : {}
+      icon: config$1.showMissingIcons && iconName ? callProvided("missingIconAbstract") || {} : {}
     }));
   });
 }
 var noop$1 = function noop3() {
 };
-var p = config.measurePerformance && PERFORMANCE && PERFORMANCE.mark && PERFORMANCE.measure ? PERFORMANCE : {
+var p = config$1.measurePerformance && PERFORMANCE && PERFORMANCE.mark && PERFORMANCE.measure ? PERFORMANCE : {
   mark: noop$1,
   measure: noop$1
 };
@@ -1619,18 +1619,18 @@ function isWatched(node) {
   return typeof i2svg2 === "string";
 }
 function hasPrefixAndIcon(node) {
-  var prefix = node.getAttribute ? node.getAttribute(DATA_PREFIX) : null;
+  var prefix2 = node.getAttribute ? node.getAttribute(DATA_PREFIX) : null;
   var icon3 = node.getAttribute ? node.getAttribute(DATA_ICON) : null;
-  return prefix && icon3;
+  return prefix2 && icon3;
 }
 function hasBeenReplaced(node) {
-  return node && node.classList && node.classList.contains && node.classList.contains(config.replacementClass);
+  return node && node.classList && node.classList.contains && node.classList.contains(config$1.replacementClass);
 }
 function getMutator() {
-  if (config.autoReplaceSvg === true) {
+  if (config$1.autoReplaceSvg === true) {
     return mutators.replace;
   }
-  var mutator = mutators[config.autoReplaceSvg];
+  var mutator = mutators[config$1.autoReplaceSvg];
   return mutator || mutators.replace;
 }
 function createElementNS(tag) {
@@ -1669,7 +1669,7 @@ var mutators = {
       mutation[1].forEach(function(abstract) {
         node.parentNode.insertBefore(convertSVG(abstract), node);
       });
-      if (node.getAttribute(DATA_FA_I2SVG) === null && config.keepOriginalSource) {
+      if (node.getAttribute(DATA_FA_I2SVG) === null && config$1.keepOriginalSource) {
         var comment = DOCUMENT.createComment(nodeAsComment(node));
         node.parentNode.replaceChild(comment, node);
       } else {
@@ -1680,14 +1680,14 @@ var mutators = {
   nest: function nest(mutation) {
     var node = mutation[0];
     var abstract = mutation[1];
-    if (~classArray(node).indexOf(config.replacementClass)) {
+    if (~classArray(node).indexOf(config$1.replacementClass)) {
       return mutators.replace(mutation);
     }
-    var forSvg = new RegExp("".concat(config.familyPrefix, "-.*"));
+    var forSvg = new RegExp("".concat(config$1.familyPrefix, "-.*"));
     delete abstract[0].attributes.id;
     if (abstract[0].attributes.class) {
       var splitClasses = abstract[0].attributes.class.split(" ").reduce(function(acc, cls) {
-        if (cls === config.replacementClass || cls.match(forSvg)) {
+        if (cls === config$1.replacementClass || cls.match(forSvg)) {
           acc.toSvg.push(cls);
         } else {
           acc.toNode.push(cls);
@@ -1720,7 +1720,7 @@ function perform(mutations, callback) {
     callbackFunction();
   } else {
     var frame = performOperationSync;
-    if (config.mutateApproach === MUTATION_APPROACH_ASYNC) {
+    if (config$1.mutateApproach === MUTATION_APPROACH_ASYNC) {
       frame = WINDOW.requestAnimationFrame || performOperationSync;
     }
     frame(function() {
@@ -1744,7 +1744,7 @@ function observe(options) {
   if (!MUTATION_OBSERVER) {
     return;
   }
-  if (!config.observeMutations) {
+  if (!config$1.observeMutations) {
     return;
   }
   var _options$treeCallback = options.treeCallback, treeCallback = _options$treeCallback === void 0 ? noop$2 : _options$treeCallback, _options$nodeCallback = options.nodeCallback, nodeCallback = _options$nodeCallback === void 0 ? noop$2 : _options$nodeCallback, _options$pseudoElemen = options.pseudoElementsCallback, pseudoElementsCallback = _options$pseudoElemen === void 0 ? noop$2 : _options$pseudoElemen, _options$observeMutat = options.observeMutationsRoot, observeMutationsRoot = _options$observeMutat === void 0 ? DOCUMENT : _options$observeMutat;
@@ -1754,18 +1754,18 @@ function observe(options) {
     var defaultPrefix = getDefaultUsablePrefix();
     toArray(objects).forEach(function(mutationRecord) {
       if (mutationRecord.type === "childList" && mutationRecord.addedNodes.length > 0 && !isWatched(mutationRecord.addedNodes[0])) {
-        if (config.searchPseudoElements) {
+        if (config$1.searchPseudoElements) {
           pseudoElementsCallback(mutationRecord.target);
         }
         treeCallback(mutationRecord.target);
       }
-      if (mutationRecord.type === "attributes" && mutationRecord.target.parentNode && config.searchPseudoElements) {
+      if (mutationRecord.type === "attributes" && mutationRecord.target.parentNode && config$1.searchPseudoElements) {
         pseudoElementsCallback(mutationRecord.target.parentNode);
       }
       if (mutationRecord.type === "attributes" && isWatched(mutationRecord.target) && ~ATTRIBUTES_WATCHED_FOR_MUTATION.indexOf(mutationRecord.attributeName)) {
         if (mutationRecord.attributeName === "class" && hasPrefixAndIcon(mutationRecord.target)) {
-          var _getCanonicalIcon = getCanonicalIcon(classArray(mutationRecord.target)), prefix = _getCanonicalIcon.prefix, iconName = _getCanonicalIcon.iconName;
-          mutationRecord.target.setAttribute(DATA_PREFIX, prefix || defaultPrefix);
+          var _getCanonicalIcon = getCanonicalIcon(classArray(mutationRecord.target)), prefix2 = _getCanonicalIcon.prefix, iconName = _getCanonicalIcon.iconName;
+          mutationRecord.target.setAttribute(DATA_PREFIX, prefix2 || defaultPrefix);
           if (iconName)
             mutationRecord.target.setAttribute(DATA_ICON, iconName);
         } else if (hasBeenReplaced(mutationRecord.target)) {
@@ -1833,9 +1833,9 @@ function attributesParser(node) {
   }, {});
   var title = node.getAttribute("title");
   var titleId = node.getAttribute("data-fa-title-id");
-  if (config.autoA11y) {
+  if (config$1.autoA11y) {
     if (title) {
-      extraAttributes["aria-labelledby"] = "".concat(config.replacementClass, "-title-").concat(titleId || nextUniqueId());
+      extraAttributes["aria-labelledby"] = "".concat(config$1.replacementClass, "-title-").concat(titleId || nextUniqueId());
     } else {
       extraAttributes["aria-hidden"] = "true";
       extraAttributes["focusable"] = "false";
@@ -1868,7 +1868,7 @@ function parseMeta(node) {
   var parser = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {
     styleParser: true
   };
-  var _classParser = classParser(node), iconName = _classParser.iconName, prefix = _classParser.prefix, extraClasses = _classParser.rest;
+  var _classParser = classParser(node), iconName = _classParser.iconName, prefix2 = _classParser.prefix, extraClasses = _classParser.rest;
   var extraAttributes = attributesParser(node);
   var pluginMeta = chainHooks("parseNodeAttributes", {}, node);
   var extraStyles = parser.styleParser ? styleParser(node) : [];
@@ -1876,7 +1876,7 @@ function parseMeta(node) {
     iconName,
     title: node.getAttribute("title"),
     titleId: node.getAttribute("data-fa-title-id"),
-    prefix,
+    prefix: prefix2,
     transform: meaninglessTransform,
     mask: {
       iconName: null,
@@ -1894,7 +1894,7 @@ function parseMeta(node) {
 }
 var styles$2 = namespace.styles;
 function generateMutation(node) {
-  var nodeMeta = config.autoReplaceSvg === "nest" ? parseMeta(node, {
+  var nodeMeta = config$1.autoReplaceSvg === "nest" ? parseMeta(node, {
     styleParser: false
   }) : parseMeta(node);
   if (~nodeMeta.extra.classes.indexOf(LAYERS_TEXT_CLASSNAME)) {
@@ -1914,7 +1914,7 @@ function onTree(root) {
   var hclRemove = function hclRemove2(suffix) {
     return htmlClassList.remove("".concat(HTML_CLASS_I2SVG_BASE_CLASS, "-").concat(suffix));
   };
-  var prefixes = config.autoFetchSvg ? Object.keys(PREFIX_TO_STYLE) : Object.keys(styles$2);
+  var prefixes = config$1.autoFetchSvg ? Object.keys(PREFIX_TO_STYLE) : Object.keys(styles$2);
   var prefixesDomQuery = [".".concat(LAYERS_TEXT_CLASSNAME, ":not([").concat(DATA_FA_I2SVG, "])")].concat(prefixes.map(function(p2) {
     return ".".concat(p2, ":not([").concat(DATA_FA_I2SVG, "])");
   })).join(", ");
@@ -1991,7 +1991,7 @@ var render$3 = function render(iconDefinition) {
   var _params$transform = params.transform, transform = _params$transform === void 0 ? meaninglessTransform : _params$transform, _params$symbol = params.symbol, symbol = _params$symbol === void 0 ? false : _params$symbol, _params$mask = params.mask, mask = _params$mask === void 0 ? null : _params$mask, _params$maskId = params.maskId, maskId = _params$maskId === void 0 ? null : _params$maskId, _params$title = params.title, title = _params$title === void 0 ? null : _params$title, _params$titleId = params.titleId, titleId = _params$titleId === void 0 ? null : _params$titleId, _params$classes = params.classes, classes = _params$classes === void 0 ? [] : _params$classes, _params$attributes = params.attributes, attributes = _params$attributes === void 0 ? {} : _params$attributes, _params$styles = params.styles, styles2 = _params$styles === void 0 ? {} : _params$styles;
   if (!iconDefinition)
     return;
-  var prefix = iconDefinition.prefix, iconName = iconDefinition.iconName, icon3 = iconDefinition.icon;
+  var prefix2 = iconDefinition.prefix, iconName = iconDefinition.iconName, icon3 = iconDefinition.icon;
   return domVariants(_objectSpread2({
     type: "icon"
   }, iconDefinition), function() {
@@ -1999,9 +1999,9 @@ var render$3 = function render(iconDefinition) {
       iconDefinition,
       params
     });
-    if (config.autoA11y) {
+    if (config$1.autoA11y) {
       if (title) {
-        attributes["aria-labelledby"] = "".concat(config.replacementClass, "-title-").concat(titleId || nextUniqueId());
+        attributes["aria-labelledby"] = "".concat(config$1.replacementClass, "-title-").concat(titleId || nextUniqueId());
       } else {
         attributes["aria-hidden"] = "true";
         attributes["focusable"] = "false";
@@ -2017,7 +2017,7 @@ var render$3 = function render(iconDefinition) {
           icon: {}
         }
       },
-      prefix,
+      prefix: prefix2,
       iconName,
       transform: _objectSpread2(_objectSpread2({}, meaninglessTransform), transform),
       symbol,
@@ -2054,9 +2054,9 @@ var ReplaceElements = {
       return onTree(node, callback);
     };
     providers$$1.generateSvgReplacementMutation = function(node, nodeMeta) {
-      var iconName = nodeMeta.iconName, title = nodeMeta.title, titleId = nodeMeta.titleId, prefix = nodeMeta.prefix, transform = nodeMeta.transform, symbol = nodeMeta.symbol, mask = nodeMeta.mask, maskId = nodeMeta.maskId, extra = nodeMeta.extra;
+      var iconName = nodeMeta.iconName, title = nodeMeta.title, titleId = nodeMeta.titleId, prefix2 = nodeMeta.prefix, transform = nodeMeta.transform, symbol = nodeMeta.symbol, mask = nodeMeta.mask, maskId = nodeMeta.maskId, extra = nodeMeta.extra;
       return new Promise(function(resolve, reject) {
-        Promise.all([findIcon(iconName, prefix), mask.iconName ? findIcon(mask.iconName, mask.prefix) : Promise.resolve({
+        Promise.all([findIcon(iconName, prefix2), mask.iconName ? findIcon(mask.iconName, mask.prefix) : Promise.resolve({
           found: false,
           width: 512,
           height: 512,
@@ -2068,7 +2068,7 @@ var ReplaceElements = {
               main,
               mask: mask2
             },
-            prefix,
+            prefix: prefix2,
             iconName,
             transform,
             symbol,
@@ -2126,7 +2126,7 @@ var Layers = {
           return [{
             tag: "span",
             attributes: {
-              class: ["".concat(config.familyPrefix, "-layers")].concat(_toConsumableArray(classes)).join(" ")
+              class: ["".concat(config$1.familyPrefix, "-layers")].concat(_toConsumableArray(classes)).join(" ")
             },
             children
           }];
@@ -2155,7 +2155,7 @@ var LayersCounter = {
             extra: {
               attributes,
               styles: styles2,
-              classes: ["".concat(config.familyPrefix, "-layers-counter")].concat(_toConsumableArray(classes))
+              classes: ["".concat(config$1.familyPrefix, "-layers-counter")].concat(_toConsumableArray(classes))
             }
           });
         });
@@ -2184,7 +2184,7 @@ var LayersText = {
             extra: {
               attributes,
               styles: styles2,
-              classes: ["".concat(config.familyPrefix, "-layers-text")].concat(_toConsumableArray(classes))
+              classes: ["".concat(config$1.familyPrefix, "-layers-text")].concat(_toConsumableArray(classes))
             }
           });
         });
@@ -2202,7 +2202,7 @@ var LayersText = {
         width = boundingClientRect.width / computedFontSize;
         height = boundingClientRect.height / computedFontSize;
       }
-      if (config.autoA11y && !title) {
+      if (config$1.autoA11y && !title) {
         extra.attributes["aria-hidden"] = "true";
       }
       return Promise.resolve([node, makeLayersTextAbstract({
@@ -2248,19 +2248,19 @@ function replaceForPosition(node, position) {
       return resolve();
     } else if (fontFamily && content !== "none" && content !== "") {
       var _content = styles2.getPropertyValue("content");
-      var prefix = ~["Solid", "Regular", "Light", "Thin", "Duotone", "Brands", "Kit"].indexOf(fontFamily[2]) ? STYLE_TO_PREFIX[fontFamily[2].toLowerCase()] : FONT_WEIGHT_TO_PREFIX[fontWeight];
+      var prefix2 = ~["Solid", "Regular", "Light", "Thin", "Duotone", "Brands", "Kit"].indexOf(fontFamily[2]) ? STYLE_TO_PREFIX[fontFamily[2].toLowerCase()] : FONT_WEIGHT_TO_PREFIX[fontWeight];
       var _hexValueFromContent = hexValueFromContent(_content), hexValue = _hexValueFromContent.value, isSecondary = _hexValueFromContent.isSecondary;
       var isV4 = fontFamily[0].startsWith("FontAwesome");
-      var iconName = byUnicode(prefix, hexValue);
+      var iconName = byUnicode(prefix2, hexValue);
       var iconIdentifier = iconName;
       if (isV4) {
         var iconName4 = byOldUnicode(hexValue);
         if (iconName4.iconName && iconName4.prefix) {
           iconName = iconName4.iconName;
-          prefix = iconName4.prefix;
+          prefix2 = iconName4.prefix;
         }
       }
-      if (iconName && !isSecondary && (!alreadyProcessedPseudoElement || alreadyProcessedPseudoElement.getAttribute(DATA_PREFIX) !== prefix || alreadyProcessedPseudoElement.getAttribute(DATA_ICON) !== iconIdentifier)) {
+      if (iconName && !isSecondary && (!alreadyProcessedPseudoElement || alreadyProcessedPseudoElement.getAttribute(DATA_PREFIX) !== prefix2 || alreadyProcessedPseudoElement.getAttribute(DATA_ICON) !== iconIdentifier)) {
         node.setAttribute(pendingAttribute, iconIdentifier);
         if (alreadyProcessedPseudoElement) {
           node.removeChild(alreadyProcessedPseudoElement);
@@ -2268,13 +2268,13 @@ function replaceForPosition(node, position) {
         var meta = blankMeta();
         var extra = meta.extra;
         extra.attributes[DATA_FA_PSEUDO_ELEMENT] = position;
-        findIcon(iconName, prefix).then(function(main) {
+        findIcon(iconName, prefix2).then(function(main) {
           var abstract = makeInlineSvgAbstract(_objectSpread2(_objectSpread2({}, meta), {}, {
             icons: {
               main,
               mask: emptyCanonicalIcon()
             },
-            prefix,
+            prefix: prefix2,
             iconName: iconIdentifier,
             extra,
             watchable: true
@@ -2299,7 +2299,7 @@ function replaceForPosition(node, position) {
     }
   });
 }
-function replace2(node) {
+function replace$1(node) {
   return Promise.all([replaceForPosition(node, "::before"), replaceForPosition(node, "::after")]);
 }
 function processable(node) {
@@ -2309,7 +2309,7 @@ function searchPseudoElements(root) {
   if (!IS_DOM)
     return;
   return new Promise(function(resolve, reject) {
-    var operations = toArray(root.querySelectorAll("*")).filter(processable).map(replace2);
+    var operations = toArray(root.querySelectorAll("*")).filter(processable).map(replace$1);
     var end3 = perf.begin("searchPseudoElements");
     disableObservation();
     Promise.all(operations).then(function() {
@@ -2335,7 +2335,7 @@ var PseudoElements = {
   provides: function provides3(providers$$1) {
     providers$$1.pseudoElements2svg = function(params) {
       var _params$node = params.node, node = _params$node === void 0 ? DOCUMENT : _params$node;
-      if (config.searchPseudoElements) {
+      if (config$1.searchPseudoElements) {
         searchPseudoElements(node);
       }
     };
@@ -3376,26 +3376,379 @@ function __vue2_injectStyles$1(context) {
 var FilePreview = /* @__PURE__ */ function() {
   return __component__$1.exports;
 }();
+var Shadowable = {
+  props: {
+    dropShadow: [Boolean, String],
+    dropShadowableClassPrefix: {
+      type: String,
+      default: "drop-shadow"
+    },
+    shadow: [Boolean, String],
+    shadowableClassPrefix: {
+      type: String,
+      default: "shadow"
+    }
+  },
+  computed: {
+    shadowableClass() {
+      const dropShadowClassName = this.dropShadow === true ? "" : this.dropShadow && `-${this.dropShadow}`;
+      const shadowClassName = this.shadow === true ? "" : this.shadow && `-${this.shadow}`;
+      return {
+        [`${this.dropShadowableClassPrefix}${dropShadowClassName}`]: !!this.dropShadow,
+        [`${this.shadowableClassPrefix}${shadowClassName}`]: !!this.shadow
+      };
+    }
+  }
+};
+var __assign = function() {
+  __assign = Object.assign || function __assign2(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+      s = arguments[i];
+      for (var p2 in s)
+        if (Object.prototype.hasOwnProperty.call(s, p2))
+          t[p2] = s[p2];
+    }
+    return t;
+  };
+  return __assign.apply(this, arguments);
+};
+function lowerCase(str) {
+  return str.toLowerCase();
+}
+var DEFAULT_SPLIT_REGEXP = [/([a-z0-9])([A-Z])/g, /([A-Z])([A-Z][a-z])/g];
+var DEFAULT_STRIP_REGEXP = /[^A-Z0-9]+/gi;
+function noCase(input, options) {
+  if (options === void 0) {
+    options = {};
+  }
+  var _a = options.splitRegexp, splitRegexp = _a === void 0 ? DEFAULT_SPLIT_REGEXP : _a, _b = options.stripRegexp, stripRegexp = _b === void 0 ? DEFAULT_STRIP_REGEXP : _b, _c = options.transform, transform = _c === void 0 ? lowerCase : _c, _d = options.delimiter, delimiter = _d === void 0 ? " " : _d;
+  var result = replace2(replace2(input, splitRegexp, "$1\0$2"), stripRegexp, "\0");
+  var start = 0;
+  var end3 = result.length;
+  while (result.charAt(start) === "\0")
+    start++;
+  while (result.charAt(end3 - 1) === "\0")
+    end3--;
+  return result.slice(start, end3).split("\0").map(transform).join(delimiter);
+}
+function replace2(input, re, value) {
+  if (re instanceof RegExp)
+    return input.replace(re, value);
+  return re.reduce(function(input2, re2) {
+    return input2.replace(re2, value);
+  }, input);
+}
+function dotCase(input, options) {
+  if (options === void 0) {
+    options = {};
+  }
+  return noCase(input, __assign({
+    delimiter: "."
+  }, options));
+}
+function paramCase(input, options) {
+  if (options === void 0) {
+    options = {};
+  }
+  return dotCase(input, __assign({
+    delimiter: "-"
+  }, options));
+}
+const global$1 = {};
+function config(...args) {
+  if (!args.length) {
+    return global$1;
+  }
+  const [key, value] = args;
+  if (typeof key === "string") {
+    return typeof global$1[key] !== "undefined" ? global$1[key] : value;
+  }
+  if (Array.isArray(key)) {
+    return key.reduce((carry, key2) => {
+      return Object.assign(carry, {
+        [key2]: global$1[key2]
+      });
+    }, {});
+  }
+  return Object.assign(global$1, ...args);
+}
+function prefix(key, value, delimeter = "-") {
+  const string = value.toString().replace(new RegExp(`^${key}${delimeter}?`), "");
+  return [paramCase(string), key].filter((value2) => !!value2).join(delimeter);
+}
+function isObject(subject) {
+  return !Array.isArray(subject) && typeof subject === "object";
+}
+var FormControl = {
+  directives: {
+    bindEvents: {
+      bind(el, binding, vnode) {
+        el.addEventListener("focus", () => {
+          vnode.context.hasFocus = true;
+        });
+        el.addEventListener("blur", () => {
+          vnode.context.hasFocus = false;
+        });
+        el.addEventListener(el.tagName === "SELECT" ? "change" : "input", (e) => {
+          vnode.context.isEmpty = !el.value;
+          vnode.context.currentValue = el.value;
+        });
+        vnode.context.hasChanged = !!el.value;
+        vnode.context.bindEvents.forEach((name) => {
+          el.addEventListener(name, (event) => {
+            vnode.context.$emit(name, event);
+          });
+        });
+        if (el.tagName === "SELECT") {
+          const opt = el.querySelector('[value=""]');
+          if (opt && opt.value === el.value) {
+            vnode.context.defaultEmpty = true;
+          }
+        }
+      }
+    }
+  },
+  mixins: [Shadowable],
+  inheritAttrs: false,
+  props: {
+    activity: {
+      type: Boolean,
+      default: false
+    },
+    animated: {
+      type: Boolean,
+      default: () => config("animated", false)
+    },
+    bindEvents: {
+      type: Array,
+      default() {
+        return ["focus", "blur", "change", "click", "keypress", "keyup", "keydown", "progress", "paste"];
+      }
+    },
+    componentName: {
+      type: String,
+      default() {
+        return this.$options.name;
+      }
+    },
+    defaultControlClass: {
+      type: String,
+      default: () => config("defaultControlClass", "form-control")
+    },
+    defaultValue: {
+      default: () => config("defaultValue", null)
+    },
+    error: [String, Array, Boolean],
+    errors: {
+      type: [Array, Object, Boolean],
+      default() {
+        return {};
+      }
+    },
+    feedback: [String, Array],
+    group: {
+      type: Boolean,
+      default: () => config("group", true)
+    },
+    helpText: [Number, String],
+    hideLabel: Boolean,
+    indicator: {
+      type: String,
+      default: () => config("indicator", "spinner")
+    },
+    indicatorSize: String,
+    inline: Boolean,
+    invalid: Boolean,
+    label: [Number, String],
+    labelClass: {
+      type: [Object, String],
+      default: () => config("labelClass", "form-label")
+    },
+    pill: Boolean,
+    plaintext: Boolean,
+    size: String,
+    spacing: String,
+    valid: Boolean,
+    value: {
+      default: null
+    }
+  },
+  data() {
+    return {
+      currentValue: this.value || this.defaultValue,
+      defaultEmpty: false,
+      hasChanged: false,
+      hasFocus: false,
+      isEmpty: !(this.value || this.defaultValue)
+    };
+  },
+  computed: {
+    id() {
+      return this.$attrs.id || this.$attrs.name;
+    },
+    controlAttributes() {
+      return Object.keys(this.$attrs).concat([["id", this.id], ["class", this.controlClasses]]).reduce((carry, key) => {
+        if (Array.isArray(key)) {
+          carry[key[0]] = key[1];
+        } else {
+          carry[key] = this[key] || this.$attrs[key];
+        }
+        return carry;
+      }, {});
+    },
+    controlClass() {
+      return this.defaultControlClass;
+    },
+    controlSizeClass() {
+      return prefix(this.size, this.controlClass);
+    },
+    formGroupClasses() {
+      return {
+        [paramCase(this.componentName)]: !!this.componentName,
+        [this.size && prefix(this.size, this.componentName)]: !!this.size,
+        "animated": this.animated,
+        "default-empty": this.defaultEmpty,
+        "form-group": this.group,
+        [this.size && prefix(this.size, "form-group")]: !!this.size,
+        "has-activity": this.activity,
+        "has-changed": this.hasChanged,
+        "has-focus": this.hasFocus,
+        "has-icon": !!this.$slots.icon,
+        "is-empty": this.isEmpty,
+        "is-invalid": !!(this.invalid || this.invalidFeedback),
+        "is-valid": !!(this.valid || this.validFeedback)
+      };
+    },
+    controlClasses() {
+      return Object.assign({
+        [this.controlClass]: !!this.controlClass,
+        [this.controlSizeClass]: !!this.controlSizeClass,
+        "form-control-icon": !!this.$slots.icon,
+        "is-valid": !!(this.valid || this.validFeedback),
+        "is-invalid": !!(this.invalid || this.invalidFeedback),
+        [this.pillClasses]: this.pill,
+        [this.plaintextClass]: this.plaintext,
+        [this.spacing]: !!this.spacing
+      }, this.shadowableClass);
+    },
+    hasDefaultSlot() {
+      return !!this.$slots.default;
+    },
+    invalidFeedback() {
+      if (this.error === "") {
+        return null;
+      }
+      if (this.error) {
+        return this.error;
+      }
+      const errors = this.getFieldErrors();
+      return Array.isArray(errors) ? errors.filter((error) => {
+        return error && typeof error === "string";
+      }).join("<br>") : errors;
+    },
+    pillClasses() {
+      return "rounded rounded-pill";
+    },
+    plaintextClass() {
+      return "form-control-plaintext";
+    },
+    validFeedback() {
+      return Array.isArray(this.feedback) ? this.feedback.join("<br>") : this.feedback;
+    }
+  },
+  watch: {
+    hasFocus() {
+      if (this.shouldChangeOnFocus()) {
+        this.hasChanged = true;
+      }
+    },
+    value(value) {
+      this.currentValue = value;
+    },
+    currentValue() {
+      this.hasChanged = true;
+    },
+    defaultEmpty() {
+      this.hasChanged = true;
+    }
+  },
+  mounted() {
+    if (this.value === null && this.defaultValue !== null) {
+      this.$emit("input", this.defaultValue);
+    }
+  },
+  methods: {
+    blur() {
+      if (this.getInputField()) {
+        this.getInputField().blur();
+      }
+    },
+    focus() {
+      if (this.getInputField()) {
+        this.getInputField().focus();
+      }
+    },
+    getInputField() {
+      return this.$el.querySelector(".form-control, input, select, textarea");
+    },
+    getFieldErrors() {
+      let errors = this.error || this.errors;
+      if (this.errors && isObject(this.errors)) {
+        errors = this.errors[this.$attrs.name || this.$attrs.id];
+      }
+      return !errors || Array.isArray(errors) || isObject(errors) ? errors : [errors];
+    },
+    shouldChangeOnFocus() {
+      return !this.getInputField().readOnly;
+    },
+    onInput(e) {
+      this.$emit("input", e.target.value);
+      this.$emit("update:value", e.target.value);
+    }
+  }
+};
 var render3 = function() {
   var _vm = this;
   var _h = _vm.$createElement;
   var _c = _vm._self._c || _h;
-  return _c("div", { staticClass: "upload-field", class: { "is-dragging": _vm.isDragging, "multiple": _vm.multiple } }, [_c("dropzone", { staticClass: "upload-field-dropzone", on: { "drop": _vm.onDrop, "dragover": _vm.onDragOver, "dragenter": _vm.onDragEnter, "dragleave": _vm.onDragLeave } }, [_c("input", { ref: "input", attrs: { "type": "file", "multiple": _vm.multiple, "hidden": "" }, on: { "change": _vm.onFileChange } }), _vm._t("button", function() {
-    return [_c("btn", { attrs: { "type": "button", "variant": "primary" }, on: { "click": _vm.onClickUpload } }, [_vm._v(" " + _vm._s(_vm.label) + " ")])];
+  return _c("div", { staticClass: "upload-field", class: Object.assign({}, { "is-dragging": _vm.isDragging, "multiple": _vm.multiple }, _vm.formGroupClasses) }, [_c("dropzone", { staticClass: "upload-field-dropzone", on: { "drop": function($event) {
+    $event.preventDefault();
+    return _vm.onDrop.apply(null, arguments);
+  }, "dragover": function($event) {
+    $event.preventDefault();
+    return _vm.onDragOver.apply(null, arguments);
+  }, "dragenter": function($event) {
+    $event.preventDefault();
+    return _vm.onDragEnter.apply(null, arguments);
+  }, "dragleave": function($event) {
+    $event.preventDefault();
+    return _vm.onDragLeave.apply(null, arguments);
+  } } }, [_c("input", { ref: "input", attrs: { "type": "file", "multiple": _vm.multiple, "hidden": "" }, on: { "change": _vm.onFileChange } }), _vm._t("button", function() {
+    return [_c("btn", { attrs: { "type": "button", "variant": _vm.invalid || _vm.invalidFeedback ? "danger" : "primary" }, on: { "click": _vm.onClickUpload } }, [_vm._v(" " + _vm._s(_vm.label) + " ")])];
   }, null, { onClickUpload: _vm.onClickUpload })], 2), _vm._t("files", function() {
-    return [_vm.files.length ? _c("div", { staticClass: "upload-field-files" }, _vm._l(_vm.files, function(file) {
-      return _c("file-preview", { key: file.name, attrs: { "file": file }, on: { "close": _vm.onClickClose } });
-    }), 1) : _vm._e()];
-  }, { "files": _vm.files })], 2);
+    return [_vm.files.length ? _c("div", { staticClass: "upload-field-files" }, [_vm._t("file", function() {
+      return _vm._l(_vm.files, function(file) {
+        return _c("file-preview", { key: file.name, attrs: { "file": file }, on: { "close": _vm.onClickClose } });
+      });
+    }, null, { file: _vm.file, onClickClose: _vm.onClickClose })], 2) : _vm._e()];
+  }, null, { files: _vm.files, onClickClose: _vm.onClickClose }), _vm._t("feedback", function() {
+    return [_vm.invalidFeedback ? _c("div", { staticClass: "invalid-feedback", attrs: { "invalid": "" }, domProps: { "innerHTML": _vm._s(_vm.invalidFeedback) } }) : _vm.validFeedback ? _c("div", { staticClass: "valid-feedback", attrs: { "valid": "" }, domProps: { "innerHTML": _vm._s(_vm.validFeedback) } }) : _vm._e()];
+  }), _vm._t("help", function() {
+    return [_vm.helpText ? _c("small", { ref: "help" }, [_vm._v(" " + _vm._s(_vm.helpText) + " ")]) : _vm._e()];
+  })], 2);
 };
 var staticRenderFns = [];
 var UploadField_vue_vue_type_style_index_0_lang = "";
 const __vue2_script = {
+  name: "UploadField",
   components: {
     Btn,
     Dropzone,
     FilePreview
   },
+  mixins: [
+    FormControl
+  ],
   model: {
     prop: "files"
   },
@@ -3466,9 +3819,7 @@ const __vue2_script = {
     },
     onClickUpload(event) {
       this.$emit("click", event);
-      if (!event.defaultPrevented) {
-        this.$refs.input.click();
-      }
+      this.$refs.input.click();
     },
     onDragOver(event) {
       this.isDragging = true;
@@ -3483,10 +3834,9 @@ const __vue2_script = {
       this.$emit("dragleave", event);
     },
     onDrop(event) {
-      console.log(event.defaultPrevented);
-      if (!event.defaultPrevented) {
-        this.addFiles(event.dataTransfer.files);
-      }
+      this.isDragging = false;
+      this.$emit("drop", event);
+      this.addFiles(event.dataTransfer.files);
     }
   }
 };

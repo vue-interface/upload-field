@@ -1,28 +1,49 @@
 <template>
-    <div class="upload-field" :class="{'is-dragging': isDragging, 'multiple': multiple}">
+    <div class="upload-field" :class="{'is-dragging': isDragging, 'multiple': multiple, ...formGroupClasses}">
         <dropzone
             class="upload-field-dropzone"
-            @drop="onDrop"
-            @dragover="onDragOver"
-            @dragenter="onDragEnter"
-            @dragleave="onDragLeave">
+            @drop.prevent="onDrop"
+            @dragover.prevent="onDragOver"
+            @dragenter.prevent="onDragEnter"
+            @dragleave.prevent="onDragLeave">
             <input ref="input" type="file" :multiple="multiple" hidden @change="onFileChange">
 
             <slot name="button" v-bind="{ onClickUpload }">
-                <btn type="button" variant="primary" @click="onClickUpload">
+                <btn type="button" :variant="invalid || invalidFeedback ? 'danger' : 'primary'" @click="onClickUpload">
                     {{ label }}
                 </btn>
             </slot>
         </dropzone>
         
-        <slot name="files" :files="files">
+        <slot name="files" v-bind="{ files, onClickClose }">
             <div v-if="files.length" class="upload-field-files">
-                <file-preview
-                    v-for="file in files"
-                    :key="file.name"
-                    :file="file"
-                    @close="onClickClose" />
+                <slot name="file" v-bind="{ file, onClickClose }">
+                    <file-preview
+                        v-for="file in files"
+                        :key="file.name"
+                        :file="file"
+                        @close="onClickClose" />
+                </slot>
             </div>
+        </slot>
+
+        <slot name="feedback">
+            <div 
+                v-if="invalidFeedback"
+                class="invalid-feedback"
+                invalid
+                v-html="invalidFeedback" />
+            <div 
+                v-else-if="validFeedback"
+                class="valid-feedback"
+                valid
+                v-html="validFeedback" />
+        </slot>
+
+        <slot name="help">
+            <small v-if="helpText" ref="help">
+                {{ helpText }}
+            </small>
         </slot>
     </div>
 </template>
@@ -31,14 +52,21 @@
 import { Btn } from '@vue-interface/btn';
 import { Dropzone } from '@vue-interface/dropzone';
 import { FilePreview } from '@vue-interface/file-preview';
+import { FormControl } from '@vue-interface/form-control';
 
 export default {
+
+    name: 'UploadField',
 
     components: {
         Btn,
         Dropzone,
         FilePreview
     },
+
+    mixins: [
+        FormControl
+    ],
 
     model: {
         prop: 'files'
@@ -166,10 +194,7 @@ export default {
          */
         onClickUpload(event) {
             this.$emit('click', event);
-
-            if(!event.defaultPrevented) {
-                this.$refs.input.click();
-            }
+            this.$refs.input.click();
         },
 
         /**
@@ -208,14 +233,9 @@ export default {
          * @param {String}
          */
         onDrop(event) {
-            console.log(event.defaultPrevented);
-
-            // this.isDragging = false;
-            // this.$emit('drop', event);
-
-            if(!event.defaultPrevented) {
-                this.addFiles(event.dataTransfer.files);
-            }
+            this.isDragging = false;
+            this.$emit('drop', event);
+            this.addFiles(event.dataTransfer.files);
         }
 
     }
@@ -224,11 +244,6 @@ export default {
 </script>
 
 <style>
-/* .upload-field.is-dragging,
-.upload-field .is-dragging {
-    
-} */
-
 .upload-field .div.form-control {
     height: auto;
     border: 0;
@@ -248,5 +263,10 @@ export default {
 }
 .upload-field .uploading .file-preview {
     opacity: .5;
+}
+
+.upload-field.is-valid .valid-feedback,
+.upload-field.is-invalid .invalid-feedback {
+    display: flex;
 }
 </style>
