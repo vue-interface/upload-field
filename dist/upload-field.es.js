@@ -3726,11 +3726,9 @@ var render3 = function() {
   } } }, [_c("input", { ref: "input", attrs: { "type": "file", "multiple": _vm.multiple, "hidden": "" }, on: { "change": _vm.onFileChange } }), _vm._t("button", function() {
     return [_c("btn", { attrs: { "type": "button", "variant": _vm.invalid || _vm.invalidFeedback ? "danger" : "primary" }, on: { "click": _vm.onClickUpload } }, [_vm._v(" " + _vm._s(_vm.label) + " ")])];
   }, null, { onClickUpload: _vm.onClickUpload })], 2), _vm._t("files", function() {
-    return [_vm.files.length ? _c("div", { staticClass: "upload-field-files" }, [_vm._t("file", function() {
-      return _vm._l(_vm.files, function(file) {
-        return _c("file-preview", { key: file.name, attrs: { "file": file }, on: { "close": _vm.onClickClose } });
-      });
-    }, null, { file: _vm.file, onClickClose: _vm.onClickClose })], 2) : _vm._e()];
+    return [_vm.files.length ? _c("div", { staticClass: "upload-field-files" }, _vm._l(_vm.files, function(file) {
+      return _c("file-preview", { key: file.name, attrs: { "file": file }, on: { "close": _vm.onClickClose } });
+    }), 1) : _vm._e()];
   }, null, { files: _vm.files, onClickClose: _vm.onClickClose }), _vm._t("feedback", function() {
     return [_vm.invalidFeedback ? _c("div", { staticClass: "invalid-feedback", attrs: { "invalid": "" }, domProps: { "innerHTML": _vm._s(_vm.invalidFeedback) } }) : _vm.validFeedback ? _c("div", { staticClass: "valid-feedback", attrs: { "valid": "" }, domProps: { "innerHTML": _vm._s(_vm.validFeedback) } }) : _vm._e()];
   }), _vm._t("help", function() {

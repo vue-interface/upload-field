@@ -17,13 +17,11 @@
         
         <slot name="files" v-bind="{ files, onClickClose }">
             <div v-if="files.length" class="upload-field-files">
-                <slot name="file" v-bind="{ file, onClickClose }">
-                    <file-preview
-                        v-for="file in files"
-                        :key="file.name"
-                        :file="file"
-                        @close="onClickClose" />
-                </slot>
+                <file-preview
+                    v-for="file in files"
+                    :key="file.name"
+                    :file="file"
+                    @close="onClickClose" />
             </div>
         </slot>
 
