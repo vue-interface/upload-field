@@ -237,7 +237,6 @@ export default {
 
 .upload-field-files {
     padding-top: 1rem;
-    padding-bottom: 1rem;
     display: grid;
     grid-gap: 1rem;
     grid-template-columns: repeat( auto-fit, 10rem);
