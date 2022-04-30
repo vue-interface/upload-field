@@ -1,9 +1,18 @@
 module.exports = {
-    purge: false,
-    corePlugins: {
-        container: false,
+    content: [
+        "./index.html"
+    ],
+    theme: {
+        extend: {},
     },
     plugins: [
-        ...require('@vue-interface/form-control/tailwindcss'),
+        require('@vue-interface/variant/tailwindcss'),
+        require('@vue-interface/btn/tailwindcss'),
+        require('@vue-interface/progress-bar/tailwindcss'),
+    ],
+    safelist: [
+        ...require('@vue-interface/variant/tailwindcss/safelist')(),
+        ...require('@vue-interface/btn/tailwindcss/safelist')(),
+        ...require('@vue-interface/progress-bar/tailwindcss/safelist')(),
     ]
 };

@@ -1,2 +1,5 @@
-import UploadField from './src/UploadField';
-export default UploadField;
+import UploadField from './src/UploadField.vue';
+
+export {
+    UploadField
+};

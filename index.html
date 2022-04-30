@@ -4,42 +4,42 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>UploadField</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-        <link rel="stylesheet" href="./dist/UploadField.css">
     </head>
     <body>
-        <form id="app" class="container">
-            <h1 class="mb-5">upload-field</h1>
+        <form id="app" class="container mx-auto mb-6">
+            <h1 class="text-4xl mb-6">upload-field</h1>
 
-            <h3>Basic Usage</h3>
-            <p>Single file upload.</p>
-            <upload-field v-model="image" name="file1" :max-width="200" help-text="Some help text goes here."></upload-field>
+            <h3 class="text-2xl mb-3">Basic Usage</h3>
 
-            <hr>
+            <upload-field v-model="image" name="file1" help-text="Some help text goes here."></upload-field>
 
-            <h3>Multiple Files</h3>
+            <hr class="my-6">
+
+            <h3 class="text-2xl mb-3">Multiple Files</h3>
+
             <p>Select multiple files.</p>
-            <upload-field v-model="images" name="file2" :max-width="200" multiple></upload-field>
 
-            <hr>
+            <upload-field v-model="images" name="file2" multiple></upload-field>
 
-            <h3>Upload w/ Existing Files</h3>
+            <hr class="my-6">
+
+            <h3 class="text-2xl mb-3">Upload w/ Existing Files</h3>
+
             <p>Existing files can be specified with an object or as a URL string.</p>
-            <upload-field name="file3">
+            
+            <upload-field>
                 <img src="http://via.placeholder.com/100x100" />
             </upload-field>
-
-            <hr>
-
-            <h3>Legacy Styles</h3>
-            <p>Using the legacy prop.</p>
-            <upload-field legacy :max-width="200" help-text="Some help text goes here."></upload-field>
-
         </form>
 
-        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.js"></script>
-        <script type="text/javascript" src="./dist/UploadField.umd.js"></script>
-        <script type="text/javascript">
+        <script type="module">
+            import './index.css';
+            import Vue from 'vue/dist/vue';
+            import { UploadField } from './index.js';
+            
+            Vue.config.devtools = false;
+            Vue.config.productionTip = false;
+
             const vue = new Vue({
                 el: '#app',
                 components: {
