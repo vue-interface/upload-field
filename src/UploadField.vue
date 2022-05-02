@@ -14,14 +14,22 @@
                 </btn>
             </slot>
         </dropzone>
+
+        <slot name="help">
+            <small v-if="helpText" ref="help">
+                {{ helpText }}
+            </small>
+        </slot>
         
-        <slot name="files" v-bind="{ files, onClickClose }">
+        <slot>
             <div v-if="files.length" class="upload-field-files">
-                <file-preview
-                    v-for="file in files"
-                    :key="file.name"
-                    :file="file"
-                    @close="onClickClose" />
+                <slot name="files" v-bind="{ files, onClickClose }">
+                    <file-preview
+                        v-for="file in files"
+                        :key="file.name"
+                        :file="file"
+                        @close="onClickClose" />
+                </slot>
             </div>
         </slot>
 
@@ -36,12 +44,6 @@
                 class="valid-feedback"
                 valid
                 v-html="validFeedback" />
-        </slot>
-
-        <slot name="help">
-            <small v-if="helpText" ref="help">
-                {{ helpText }}
-            </small>
         </slot>
     </div>
 </template>
